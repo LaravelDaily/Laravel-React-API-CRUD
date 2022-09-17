@@ -18,12 +18,25 @@ class CompaniesIndex extends Component {
         this.fetchCompanies()
     }
 
+    deleteCompany = (event) => {
+        if (!window.confirm('You sure?')) {
+            return
+        }
+
+        axios.delete('/api/companies/' + event.target.value)
+            .then(response => this.fetchCompanies())
+            .catch(error => console.log(error));
+    }
+
     renderCompanies() {
-        return this.state.companies.map(company => <tr>
+        return this.state.companies.map(company => <tr key={company.id}>
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">{company.name}</td>
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">{company.email}</td>
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">{company.address}</td>
             <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">{company.website}</td>
+            <td className="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
+                <button value={company.id} onClick={this.deleteCompany} type="button" className="bg-red-500 rounded-md text-white px-3 py-1 font-bold">Delete</button>
+            </td>
         </tr>);
     }
 
