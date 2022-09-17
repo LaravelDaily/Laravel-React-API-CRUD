@@ -1,7 +1,7 @@
 import './bootstrap';
 
 import { createRoot } from 'react-dom/client';
-import CompaniesIndex from "./Pages/Companies/Index";
+import App from "./Layouts/App";
 
 const root = createRoot(document.getElementById('app'));
-root.render(<CompaniesIndex />);
+root.render(<App />);
